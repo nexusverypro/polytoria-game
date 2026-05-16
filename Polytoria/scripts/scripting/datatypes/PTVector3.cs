@@ -4,6 +4,7 @@
 
 using Godot;
 using Polytoria.Attributes;
+using Polytoria.Utils;
 using System;
 
 namespace Polytoria.Scripting.Datatypes;
@@ -202,7 +203,7 @@ public class PTVector3 : IScriptGDObject
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 MoveTowards(PTVector3 current, PTVector3 target, float maxDistanceDelta) => FromGDClass(current.vector.MoveToward(target.vector, maxDistanceDelta));
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Normalize(PTVector3 value) => FromGDClass(value.vector.Normalized());
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Project(PTVector3 vector, PTVector3 onNormal) => FromGDClass(vector.vector.Project(onNormal.vector));
-	//public static Vector3 ProjectOnPlane(Vector3 vector, Vector3 planeNormal) => vector.ProjectOnPlane(planeNormal);
+	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 ProjectOnPlane(PTVector3 vector, PTVector3 planeNormal) => FromGDClass(vector.vector.Slide(planeNormal.vector.Normalized()));
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Reflect(PTVector3 inDirection, PTVector3 inNormal) => FromGDClass(inDirection.vector.Reflect(inNormal.vector));
 	//[ScriptMethod] public static Vector3 RotateTowards(Vector3 current, Vector3 target, float maxRadiansDelta, float maxMagnitudeDelta) => current.RotateTowards(current, target, maxRadiansDelta, maxMagnitudeDelta);
 	//public static Vector3 Scale(Vector3 a, Vector3 b) => a.Scale(b);
@@ -225,20 +226,6 @@ public class PTVector3 : IScriptGDObject
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Rotated(PTVector3 val, PTVector3 axis, float angle) => FromGDClass(val.vector.Rotated(axis.vector, angle));
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 LimitLength(PTVector3 val, float length) => FromGDClass(val.vector.LimitLength(length));
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Clamp(PTVector3 val, PTVector3 min, PTVector3 max) => FromGDClass(val.vector.Clamp(min.vector, max.vector));
-
-	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
-	public static PTVector3 RadToDeg(PTVector3 val) => FromGDClass(new()
-	{
-		X = Mathf.RadToDeg(val.X),
-		Y = Mathf.RadToDeg(val.Y),
-		Z = Mathf.RadToDeg(val.Z),
-	});
-
-	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
-	public static PTVector3 DegToRad(PTVector3 val) => FromGDClass(new()
-	{
-		X = Mathf.DegToRad(val.X),
-		Y = Mathf.DegToRad(val.Y),
-		Z = Mathf.DegToRad(val.Z),
-	});
+	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 RadToDeg(PTVector3 val) => FromGDClass(val.vector.RadToDeg());
+	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 DegToRad(PTVector3 val) => FromGDClass(val.vector.DegToRad());
 }

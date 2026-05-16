@@ -173,4 +173,20 @@ public class PTVector2 : IScriptGDObject
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Abs(PTVector2 val) => FromGDClass(val.vector.Abs());
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Sign(PTVector2 val) => FromGDClass(val.vector.Sign());
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Clamp(PTVector2 val, PTVector2 min, PTVector2 max) => FromGDClass(val.vector.Clamp(min.vector, max.vector));
+	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 ProjectOnPlane(PTVector2 vector, PTVector2 planeNormal) => FromGDClass(vector.vector.Slide(planeNormal.vector.Normalized()));
+	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Rotated(PTVector2 val, float angle) => FromGDClass(val.vector.Rotated(angle));
+	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 LimitLength(PTVector2 val, float length) => FromGDClass(val.vector.LimitLength(length));
+	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
+	public static PTVector2 RadToDeg(PTVector2 val) => FromGDClass(new()
+	{
+		X = Mathf.RadToDeg(val.X),
+		Y = Mathf.RadToDeg(val.Y),
+	});
+
+	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
+	public static PTVector2 DegToRad(PTVector2 val) => FromGDClass(new()
+	{
+		X = Mathf.DegToRad(val.X),
+		Y = Mathf.DegToRad(val.Y),
+	});
 }
